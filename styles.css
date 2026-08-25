@@ -1,0 +1,687 @@
+/* Hallmark · genre: editorial · macrostructure: Split Studio
+ * nav: N9 edge-aligned · footer: Ft5 statement · theme: Newsprint
+ * enrichment: scroll-driven frame sequence (existing asset)
+ * pre-emit critique: P5 H4 E4 S5 R4 V5
+ */
+
+@import url("tokens.css");
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html {
+  /* Якорь ведёт через пятнадцать экранов кадров — плавная прокрутка тут вредна. */
+  scroll-behavior: auto;
+  overflow-x: clip;
+}
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font: 400 var(--text-md)/1.6 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  /* Русские слова длинные; без этого дисплейный кегль рвёт вёрстку на 320 px. */
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin: 0;
+}
+
+:focus-visible {
+  outline: var(--rule-bold) solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* ============================ навигация · N9 ============================ */
+/* Край в край, вордмарк слева, одно действие справа. Ни списка ссылок,
+   ни центрированной группы — та форма и была отмечена в аудите как AI-шная. */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--gutter);
+  color: var(--color-stage-ink);
+  transition: color var(--dur-short) var(--ease-out),
+              background-color var(--dur-short) var(--ease-out);
+}
+.nav.is-paper {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.nav__brand {
+  display: grid;
+  gap: var(--space-4xs);
+  text-decoration: none;
+  line-height: 1.1;
+}
+.nav__brand b {
+  font: 600 var(--text-lg)/1 var(--font-display);
+  letter-spacing: -0.01em;
+}
+.nav__brand span {
+  font: 400 var(--text-2xs)/1.3 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.nav__act {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.nav__tel {
+  /* Подчёркивание сидит под цифрами, поэтому область нажатия до 44 px
+     расширяем псевдоэлементом — на планшете это тоже палец. */
+  position: relative;
+  font: 500 var(--text-sm)/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: var(--rule-hair) solid transparent;
+  padding-bottom: var(--space-4xs);
+  transition: border-color var(--dur-short) var(--ease-out);
+}
+.nav__tel::after { content: ''; position: absolute; inset: -14px -10px; }
+.nav__tel:hover { border-bottom-color: currentColor; }
+
+/* ============================== сцена ================================== */
+
+.walk { position: relative; height: 600vh; background: var(--color-stage); }
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+  background: var(--color-stage);
+}
+#hero {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+}
+.stage__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--color-stage) 76%, transparent) 0%,
+    color-mix(in oklab, var(--color-stage) 28%, transparent) 24%,
+    transparent 46%);
+}
+
+.hero-copy {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 14vh;
+  z-index: 2;
+  max-width: 32rem;
+  color: var(--color-stage-ink);
+  pointer-events: none;
+  transition: opacity var(--dur-medium) var(--ease-out);
+}
+.hero-copy h1 {
+  font-size: var(--text-display);
+  font-weight: 500;
+  line-height: 1.02;
+  text-shadow: 0 2px 24px color-mix(in oklab, var(--color-stage) 60%, transparent);
+}
+.hero-copy__house {
+  margin: var(--space-md) 0 0;
+  font: 400 var(--text-xs)/1.4 var(--font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent-2);
+}
+.hero-copy__sub {
+  margin: var(--space-sm) 0 0;
+  max-width: 26rem;
+  font-size: var(--text-sm);
+  color: color-mix(in oklab, var(--color-stage-ink) 88%, transparent);
+}
+
+/* Подпись остановки — на месте заголовка, тем же кеглем. */
+.stop {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 14vh;
+  z-index: 2;
+  color: var(--color-stage-ink);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--dur-medium) var(--ease-out),
+              transform var(--dur-medium) var(--ease-out);
+}
+.stop.is-on { opacity: 1; transform: none; }
+.stop__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  font-weight: 500;
+  line-height: 1.05;
+  text-shadow: 0 2px 24px color-mix(in oklab, var(--color-stage) 60%, transparent);
+}
+.stop__meta {
+  margin: var(--space-2xs) 0 0;
+  font: 400 var(--text-2xs)/1.4 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-2);
+}
+
+/* Работы мастерской, приходящие на остановке. */
+.proof {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 14vh;
+  z-index: 2;
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: flex-end;
+}
+.proof__item {
+  margin: 0;
+  width: clamp(96px, 12vw, 168px);
+  aspect-ratio: 4 / 3;
+  overflow: clip;
+  background: var(--color-stage-2);
+  border: var(--rule-hair) solid var(--color-stage-rule);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--dur-long) var(--ease-out),
+              transform var(--dur-long) var(--ease-out),
+              border-color var(--dur-short) var(--ease-out);
+}
+.proof__item.is-in { opacity: 1; transform: none; }
+.proof__item:hover,
+.proof__item:focus-visible { border-color: var(--color-accent-2); }
+.proof__item:active { border-color: var(--color-accent); }
+.proof__item img { width: 100%; height: 100%; object-fit: cover; }
+
+.proof__all {
+  align-self: flex-end;
+  margin-bottom: var(--space-3xs);
+  background: none;
+  border: 0;
+  padding: var(--space-2xs) 0;
+  color: var(--color-stage-ink);
+  font: 400 var(--text-2xs)/1 var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  border-bottom: var(--rule-hair) solid var(--color-stage-rule);
+  transition: border-color var(--dur-short) var(--ease-out),
+              color var(--dur-short) var(--ease-out);
+}
+.proof__all:hover { color: var(--color-accent-2); border-bottom-color: var(--color-accent-2); }
+
+.walkbar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  height: var(--rule-bold);
+  background: var(--color-stage-rule);
+  pointer-events: none;
+}
+.walkbar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--color-accent-2);
+}
+
+/* Мост из тёмной сцены в бумагу. Без него проход обрывался в белую стену:
+   пятнадцать экранов кино, а следом резко светлый лист. */
+main { position: relative; }
+main::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 42vh;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    var(--color-stage) 0%,
+    color-mix(in oklab, var(--color-stage) 55%, var(--color-paper)) 34%,
+    color-mix(in oklab, var(--color-stage) 14%, var(--color-paper)) 68%,
+    transparent 100%);
+}
+/* Первый диптих ныряет в этот мост, поэтому его текст временно светлый. */
+main > .duo:first-child { padding-top: calc(42vh + var(--space-xl)); }
+
+/* ======================= диптихи · Split Studio ======================== */
+
+.duo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-xl) var(--space-2xl);
+  align-items: center;
+  padding: var(--space-3xl) var(--gutter);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+/* Диптих чередует направление — в этом весь смысл макроструктуры. */
+.duo--flip > .duo__say { order: 2; }
+.duo--flip > .duo__show { order: 1; }
+
+.duo__say { max-width: var(--measure); }
+.duo__say h2 { font-size: var(--text-3xl); line-height: 1.08; }
+.duo__say p { color: var(--color-ink-2); }
+.duo__say p + p { margin-top: var(--space-sm); }
+.duo__lede {
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-ink) !important;
+}
+
+.kicker {
+  margin: 0 0 var(--space-md);
+  font: 400 var(--text-2xs)/1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.duo__show { min-width: 0; }
+.duo__show img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--color-paper-3);
+}
+.duo__cap {
+  margin: var(--space-2xs) 0 0;
+  font: 400 var(--text-2xs)/1.5 var(--font-body);
+  letter-spacing: 0.08em;
+  color: var(--color-neutral);
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xs);
+}
+.pair img { aspect-ratio: 1; }
+
+/* ============================== кнопки ================================= */
+
+.act {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 44px;
+  padding: var(--space-xs) var(--space-lg);
+  border: var(--rule-hair) solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font: 500 var(--text-sm)/1 var(--font-body);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out),
+              color var(--dur-short) var(--ease-out),
+              border-color var(--dur-short) var(--ease-out),
+              transform var(--dur-instant) var(--ease-out);
+}
+.act:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.act:active { transform: translateY(1px); }
+.act[disabled], .act[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+.act[data-state="loading"] { color: color-mix(in oklab, var(--color-paper) 70%, transparent); cursor: progress; }
+.act[data-state="error"] { background: var(--color-accent); border-color: var(--color-accent); }
+.act[data-state="success"] { background: var(--color-ink-2); border-color: var(--color-ink-2); }
+
+.act--quiet {
+  background: none;
+  color: var(--color-ink);
+  border-color: var(--color-rule);
+}
+.act--quiet:hover { background: none; color: var(--color-accent); border-color: var(--color-accent); }
+
+.act--text {
+  /* Подчёркивание должно сидеть под текстом, поэтому область нажатия
+     расширяем псевдоэлементом, а не отступами. */
+  position: relative;
+  min-height: auto;
+  padding: 0 0 var(--space-4xs);
+  border: 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: none;
+  color: var(--color-ink);
+}
+.act--text::after { content: ''; position: absolute; inset: -13px -8px; }
+.act--text:hover { background: none; color: var(--color-accent); border-bottom-color: var(--color-accent); }
+
+/* ============================== каталог ================================ */
+
+.cat { padding: var(--space-3xl) var(--gutter); max-width: 1400px; margin: 0 auto; }
+.cat__head {
+  display: grid;
+  gap: var(--space-md);
+  max-width: var(--measure);
+  margin-bottom: var(--space-xl);
+}
+.cat__head h2 { font-size: var(--text-3xl); line-height: 1.08; }
+
+/* Список разделов — таблица инвентаря, а не ряд кнопок-таблеток. */
+.cat__index {
+  border-top: var(--rule-hair) solid var(--color-rule);
+  margin-bottom: var(--space-xl);
+}
+.cat__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--space-md);
+  align-items: baseline;
+  width: 100%;
+  padding: var(--space-sm) 0;
+  border: 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: none;
+  color: var(--color-ink);
+  font: 400 var(--text-lg)/1.3 var(--font-display);
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-short) var(--ease-out),
+              transform var(--dur-short) var(--ease-out);
+}
+.cat__row:hover { color: var(--color-accent); transform: translateX(var(--space-2xs)); }
+.cat__row:active { transform: translateX(var(--space-3xs)); }
+.cat__row[aria-selected="true"] { color: var(--color-accent); }
+.cat__row[aria-selected="true"] .cat__n { color: var(--color-accent); }
+.cat__price,
+.cat__n {
+  font: 400 var(--text-xs)/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--color-neutral);
+  white-space: nowrap;
+}
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: var(--space-2xs);
+}
+.shelf figure { margin: 0; overflow: clip; background: var(--color-paper-3); cursor: zoom-in; }
+.shelf img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: opacity var(--dur-short) var(--ease-out);
+}
+.shelf figure:hover img { opacity: 0.86; }
+.shelf figure:active img { opacity: 0.72; }
+
+/* ============================ доказательства =========================== */
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: var(--space-lg) var(--space-xl);
+  padding: var(--space-2xl) var(--gutter);
+  max-width: 1400px;
+  margin: 0 auto;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.fact b {
+  display: block;
+  font: 500 var(--text-3xl)/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.fact span {
+  display: block;
+  margin-top: var(--space-2xs);
+  font: 400 var(--text-2xs)/1.5 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+
+/* ============================== процесс ================================ */
+
+.steps { counter-reset: step; }
+.step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.step::before {
+  counter-increment: step;
+  content: counter(step, decimal-leading-zero);
+  font: 400 var(--text-xs)/1.6 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent);
+}
+.step h3 { font-size: var(--text-lg); font-weight: 600; }
+.step p { margin: var(--space-3xs) 0 0; color: var(--color-ink-2); font-size: var(--text-sm); }
+
+/* ======================= калькулятор и заявка ========================== */
+
+.desk {
+  padding: var(--space-3xl) var(--gutter);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.desk--tint { background: var(--color-paper-2); max-width: none; }
+.desk__in { max-width: 1400px; margin: 0 auto; }
+
+.form {
+  display: grid;
+  gap: var(--space-md) var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  align-items: end;
+}
+.form--calc { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto; }
+.f { display: grid; gap: var(--space-3xs); min-width: 0; }
+.f--wide { grid-column: 1 / -1; }
+.f > span {
+  font: 400 var(--text-2xs)/1 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+.f > span i { color: var(--color-accent); font-style: normal; }
+.f input, .f select, .f textarea {
+  width: 100%;
+  min-width: 0;
+  background: var(--color-paper);
+  border: 0;
+  border-bottom: var(--rule-hair) solid var(--color-ink);
+  border-radius: var(--radius-none);
+  padding: var(--space-2xs) 0;
+  color: var(--color-ink);
+  font: 400 var(--text-md)/1.4 var(--font-body);
+  transition: border-color var(--dur-short) var(--ease-out);
+}
+.f input[type="number"] { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.f textarea { resize: vertical; }
+.f :is(input, select, textarea):hover { border-bottom-color: var(--color-accent); }
+.f :is(input, select, textarea):disabled { opacity: 0.5; cursor: not-allowed; }
+.f :is(input, select, textarea)[aria-invalid="true"] { border-bottom-color: var(--color-accent); }
+
+.result {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: var(--space-md) var(--space-xl);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-md);
+  border-top: var(--rule-bold) solid var(--color-ink);
+}
+.result dt {
+  font: 400 var(--text-2xs)/1 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+.result dd {
+  margin: var(--space-3xs) 0 0;
+  font: 500 var(--text-2xl)/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+.note { margin: var(--space-sm) 0 0; font-size: var(--text-sm); color: var(--color-muted); }
+.note a { color: var(--color-accent); }
+.alert {
+  margin: var(--space-sm) 0 0;
+  padding-left: var(--space-sm);
+  border-left: var(--rule-bold) solid var(--color-accent);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+.send { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-2xs); margin-top: var(--space-sm); }
+.fine { grid-column: 1 / -1; margin: var(--space-2xs) 0 0; font-size: var(--text-xs); color: var(--color-muted); max-width: 44rem; }
+
+/* ============================== контакты =============================== */
+
+.card { display: grid; gap: var(--space-2xs) var(--space-lg); grid-template-columns: auto minmax(0, 1fr); }
+.card dt {
+  font: 400 var(--text-2xs)/1.7 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+.card dd { margin: 0; }
+.card a { text-decoration: none; border-bottom: var(--rule-hair) solid var(--color-rule); }
+.card a:hover { border-bottom-color: var(--color-accent); color: var(--color-accent); }
+
+.links { display: flex; flex-wrap: wrap; gap: var(--space-2xs); margin-top: var(--space-lg); }
+
+/* ========================= подвал · Ft5 statement ====================== */
+
+.close {
+  padding: var(--space-3xl) var(--gutter) var(--space-2xl);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.close p {
+  margin: 0;
+  max-width: 24ch;
+  font: 500 var(--text-3xl)/1.1 var(--font-display);
+  letter-spacing: -0.02em;
+}
+.close__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-lg);
+  margin-top: var(--space-2xl);
+  font: 400 var(--text-2xs)/1.6 var(--font-body);
+  letter-spacing: 0.1em;
+  color: var(--color-neutral);
+}
+
+/* ============================== лайтбокс =============================== */
+
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: var(--space-lg);
+  background: color-mix(in oklab, var(--color-ink) 92%, transparent);
+}
+.lb img { max-width: 100%; max-height: 88svh; object-fit: contain; }
+.lb__x {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  min-width: 44px;
+  min-height: 44px;
+  background: none;
+  border: var(--rule-hair) solid var(--color-stage-rule);
+  color: var(--color-paper);
+  font: 400 var(--text-xl)/1 var(--font-body);
+  cursor: pointer;
+}
+.lb__x:hover { border-color: var(--color-accent-2); color: var(--color-accent-2); }
+
+/* =============================== адаптив =============================== */
+
+@media (max-width: 60rem) {
+  .duo { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); padding-block: var(--space-2xl); }
+  .duo--flip > .duo__say, .duo--flip > .duo__show { order: 0; }
+  .form--calc { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .form--calc .act { grid-column: 1 / -1; }
+  /* Работы уезжают под подпись, а не исчезают: на телефоне это главный аргумент. */
+  .proof {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 7vh;
+    justify-content: flex-start;
+  }
+  .proof__all { display: none; }
+  .stop, .hero-copy { bottom: 24vh; }
+}
+
+@media (max-width: 40rem) {
+  /* N9 схлопывается до вордмарка и одного действия. Для мастерской
+     действие на телефоне — звонок, а не форма: кнопка заявки уходит,
+     а телефон становится полноценной кнопкой с хит-таргетом 44 px. */
+  .nav { gap: var(--space-2xs); padding-block: var(--space-sm); }
+  .nav__act .act { display: none; }
+  .nav__tel {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 var(--space-sm);
+    border: var(--rule-hair) solid currentColor;
+    border-radius: var(--radius-none);
+  }
+  .nav__tel::after { content: none; }
+  .nav__tel:hover { background: color-mix(in oklab, currentColor 12%, transparent); }
+
+  .cat__row { grid-template-columns: minmax(0, 1fr) auto; }
+  .cat__price { grid-column: 1 / -1; }
+  .proof__item { width: clamp(78px, 26vw, 110px); }
+  .step { grid-template-columns: minmax(0, 1fr); gap: var(--space-3xs); }
+  .card { grid-template-columns: minmax(0, 1fr); }
+  .card dt { margin-top: var(--space-2xs); }
+}
+
+/* 360 px и уже: вордмарк несёт опознание сам, подпись под ним дублирует
+   то, что через секунду скажет герой. Телефон ужимаем до влезающего. */
+@media (max-width: 22.5rem) {
+  .nav__brand span { display: none; }
+  .nav__tel { font-size: var(--text-xs); padding-inline: var(--space-2xs); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walk { height: 100svh; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+    transition-property: opacity !important;
+  }
+  .stop, .proof__item, .hero-copy { opacity: 1; transform: none; }
+}

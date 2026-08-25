@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Это макет-предложение, а не действующий сайт мастерской. Из поиска закрыт,
+     чтобы не конкурировать с woodenwolf.ru и не путать их клиентов. -->
+<meta name="robots" content="noindex, nofollow">
+<title>WoodenWolf — столярная мастерская Дмитрия Волкова</title>
+<meta name="description" content="Столешницы, подоконники и мебель из массива дерева на заказ. Усиленные щиты собственного производства. Москва, с 2003 года. Расчёт стоимости за минуту.">
+<meta property="og:title" content="WoodenWolf — столярная мастерская Дмитрия Волкова">
+<meta property="og:description" content="Мы не продаём готовый щит. Мы делаем из досок изделия.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top">
+    <b>WoodenWolf</b>
+    <span>Мастерская Д. Волкова</span>
+  </a>
+  <div class="nav__act">
+    <a class="nav__tel" href="tel:+79257086253">8 (925) 708-62-53</a>
+    <a class="act act--quiet" href="#order">Заявка на расчёт</a>
+  </div>
+</header>
+
+<!-- Проход по дому: кадры проматываются скроллом, на остановках приходят работы. -->
+<section class="walk" id="top">
+  <div class="stage">
+    <canvas id="hero" role="img"
+      aria-label="Проход по дому: столешница, подоконник, стол и шкаф из массива дерева"></canvas>
+    <div class="stage__scrim"></div>
+
+    <div class="hero-copy" id="heroCopy">
+      <h1>Мы делаем из&nbsp;досок&nbsp;— изделия</h1>
+      <p class="hero-copy__house">Столярная мастерская Дмитрия Волкова</p>
+      <p class="hero-copy__sub">Массив дуба, ясеня, бука и лиственницы. Усиленные щиты
+        собственного производства. Москва, с 2003 года.</p>
+    </div>
+
+    <div class="stop" id="stop">
+      <p class="stop__name"></p>
+      <p class="stop__meta"></p>
+    </div>
+
+    <div class="proof" id="proof"></div>
+    <div class="walkbar"><span id="walkbar"></span></div>
+  </div>
+</section>
+
+<main>
+
+<!-- Диптих 1 · позиционирование против доказательства -->
+<section class="duo">
+  <div class="duo__say">
+    <p class="kicker">Чем мы отличаемся</p>
+    <h2>Мы не продаём готовый щит</h2>
+    <p class="duo__lede">Мебельный щит можно купить в любом строительном магазине.
+      Гарантию на него производитель, как правило, не даёт.</p>
+    <p>Мы начинаем с доски. Пилим, фугуем, подбираем по цвету и текстуре, долбим
+      и усиливаем заготовки перед склейкой. Щит рождается внутри мастерской — и
+      за его стабильность отвечаем мы.</p>
+    <p><a class="act act--text" href="#works">Посмотреть работы</a></p>
+  </div>
+  <div class="duo__show">
+    <img src="./assets/catalog/table-top/k35.jpg" alt="Столешница из массива в готовой кухне" loading="lazy" decoding="async">
+    <p class="duo__cap">Столешница из усиленного щита · дуб</p>
+  </div>
+</section>
+
+<!-- Каталог · инвентарный индекс + полка -->
+<section class="cat" id="works">
+  <div class="cat__head">
+    <p class="kicker">Наши работы</p>
+    <h2>Девять направлений</h2>
+    <p>Ниже — настоящие фотографии выполненных заказов. Выберите раздел.</p>
+  </div>
+
+  <div class="cat__index" id="catIndex" role="tablist" aria-label="Разделы каталога"></div>
+  <div class="shelf" id="shelf" role="tabpanel"></div>
+</section>
+
+<!-- Доказательства · только настоящие числа -->
+<section class="facts">
+  <div class="fact"><b>23</b><span>года в работе, с 2003</span></div>
+  <div class="fact"><b>618</b><span>работ в галерее мастерской</span></div>
+  <div class="fact"><b>5,0</b><span>рейтинг организации в Яндексе</span></div>
+  <div class="fact"><b>13</b><span>пород и типов щита в расчёте</span></div>
+</section>
+
+<!-- Диптих 2 · технология, направление перевёрнуто -->
+<section class="duo duo--flip">
+  <div class="duo__say">
+    <p class="kicker">Технология</p>
+    <h2>Восемь этапов от доски до изделия</h2>
+    <p>Технология традиционная и отличается от классической только тем, что у нас
+      современный высокоточный инструмент. Сушёная доска столярного качества,
+      влажность 6–10 %.</p>
+    <p>Дуб, ясень, бук, лиственница, сосна, ольха, граб, карагач. Четыре типа
+      покрытий: морилка с лаком, масло с воском, масло с лаком, эмаль с лаком.
+      Брашировние, обжиг, патинирование — по желанию.</p>
+  </div>
+  <div class="duo__show">
+    <div class="pair">
+      <img src="./assets/catalog/window-sill/psid20.jpg" alt="Подоконник из массива дерева" loading="lazy" decoding="async">
+      <img src="./assets/catalog/cases/41.jpg" alt="Шкаф с фасадами из массива" loading="lazy" decoding="async">
+    </div>
+    <p class="duo__cap">Подоконник · шкаф · работы мастерской</p>
+  </div>
+</section>
+
+<!-- Диптих 3 · процесс заказа снимает страх перед «на заказ» -->
+<section class="duo">
+  <div class="duo__say">
+    <p class="kicker">Как проходит заказ</p>
+    <h2>Четыре шага</h2>
+    <div class="steps">
+      <div class="step">
+        <div>
+          <h3>Заявка и предварительный расчёт</h3>
+          <p>Считаете сами в калькуляторе или оставляете заявку — перезвоним и уточним.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Замер на объекте</h3>
+          <p>Замерщик выезжает по адресу, снимает размеры и уточняет вырезы под мойку,
+            смеситель и варочную панель.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Согласование материала и покрытия</h3>
+          <p>Выбираете породу и покрытие по цветовым картам морилок и тонирующих масел.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Изготовление и установка</h3>
+          <p>Производство в Москве. Готовое изделие привозим и устанавливаем.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="duo__show">
+    <img src="./assets/catalog/table/60.jpg" alt="Стол из массива дерева на заказ" loading="lazy" decoding="async">
+    <p class="duo__cap">Обеденный стол · работа мастерской</p>
+  </div>
+</section>
+
+<!-- Калькулятор · цена сразу, без «уточняйте у менеджера» -->
+<section class="desk" id="calc">
+  <div class="cat__head">
+    <p class="kicker">Цены</p>
+    <h2>Посчитайте стоимость сами</h2>
+    <p>Ориентировочная цена столешницы или подоконника из массива. В неё уже входит
+      распил, фугование, склейка в щит, шлифовка, обработка кромки, вырезы под мойку
+      и варочную панель, покрытие по стандарту&nbsp;1.</p>
+  </div>
+
+  <form class="form form--calc" id="calcForm" novalidate>
+    <label class="f"><span>Материал</span><select id="material"></select></label>
+    <label class="f"><span>Длина, см</span>
+      <input id="len" type="number" inputmode="numeric" min="6" max="600" placeholder="240">
+    </label>
+    <label class="f"><span>Ширина, см</span>
+      <input id="wid" type="number" inputmode="numeric" min="6" max="150" placeholder="60">
+    </label>
+    <button class="act" type="submit">Рассчитать</button>
+  </form>
+
+  <dl class="result" id="calcOut" hidden>
+    <div><dt>Площадь</dt><dd id="outArea"></dd></div>
+    <div><dt>Цена материала</dt><dd id="outRate"></dd></div>
+    <div><dt>Стоимость</dt><dd id="outSum"></dd></div>
+  </dl>
+  <p class="note" id="calcNote" hidden>Расчёт ориентировочный. Точная стоимость —
+    после замера. <a href="#order">Оставить заявку</a></p>
+  <p class="alert" id="calcErr" hidden></p>
+</section>
+
+<!-- Заявка · одно действие -->
+<section class="desk desk--tint" id="order">
+  <div class="desk__in">
+    <div class="cat__head">
+      <p class="kicker">Заявка на расчёт</p>
+      <h2>Опишите заказ</h2>
+      <p>Форма соберёт сообщение и отправит его тем способом, который вам удобнее.
+        Если нужного изделия нет в списке — опишите его в поле «Подробности».</p>
+    </div>
+
+    <form class="form" id="orderForm" novalidate>
+      <label class="f"><span>Изделие</span><select id="oItem"></select></label>
+      <label class="f"><span>Материал</span><select id="oMat"></select></label>
+      <label class="f"><span>Покрытие</span><select id="oFin"></select></label>
+      <label class="f"><span>Размеры</span><input id="oSize" placeholder="240 × 60 см"></label>
+      <label class="f"><span>Ваше имя<i>*</i></span>
+        <input id="oName" required autocomplete="name" placeholder="Как к вам обращаться">
+      </label>
+      <label class="f"><span>Телефон<i>*</i></span>
+        <input id="oPhone" required type="tel" autocomplete="tel" placeholder="+7 900 000-00-00">
+      </label>
+      <label class="f f--wide"><span>Адрес для выезда замерщика</span>
+        <input id="oAddr" autocomplete="street-address" placeholder="Город, улица, дом">
+      </label>
+      <label class="f f--wide"><span>Подробности</span>
+        <textarea id="oNote" rows="3" placeholder="Что нужно сделать, пожелания, удобное время звонка"></textarea>
+      </label>
+
+      <div class="send">
+        <button class="act" type="button" data-send="wa">В WhatsApp</button>
+        <button class="act act--quiet" type="button" data-send="tg">В Telegram</button>
+        <button class="act act--quiet" type="button" data-send="mail">Письмом</button>
+      </div>
+      <p class="alert" id="orderErr" hidden></p>
+      <p class="fine">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
+        Данные собираются исключительно для связи с вами, охраняются законом 152-ФЗ
+        и не передаются третьим лицам.</p>
+    </form>
+  </div>
+</section>
+
+<!-- Диптих 4 · контакты -->
+<section class="duo duo--flip" id="contacts">
+  <div class="duo__say">
+    <p class="kicker">Контакты</p>
+    <h2>Производство в Москве</h2>
+    <dl class="card">
+      <dt>Адрес</dt><dd>ул. Буракова, 27к11А</dd>
+      <dt>Телефон</dt><dd><a href="tel:+79257086253">8 (925) 708-62-53</a></dd>
+      <dt>Почта</dt><dd><a href="mailto:info@woodenwolf.ru">info@woodenwolf.ru</a></dd>
+      <dt>С какого года</dt><dd>2003</dd>
+    </dl>
+    <div class="links">
+      <a class="act act--quiet" href="https://wa.me/79257086253">WhatsApp</a>
+      <a class="act act--quiet" href="https://t.me/+79257086253">Telegram</a>
+      <a class="act act--quiet" href="https://woodenwolf.ru">Действующий сайт</a>
+    </div>
+  </div>
+  <div class="duo__show">
+    <img src="./assets/catalog/grace/21.jpg" alt="Изящная мебель из массива — работа мастерской" loading="lazy" decoding="async">
+    <p class="duo__cap">Туалетный столик · работа мастерской</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="close">
+  <p>Из доски получается изделие. Всё остальное — вопрос размеров.</p>
+  <div class="close__meta">
+    <span>WoodenWolf · Столярная мастерская Д. Волкова</span>
+    <span>Москва, ул. Буракова 27к11А</span>
+    <span>Макет-предложение, не действующий сайт. Фотографии работ — с woodenwolf.ru;
+      интерьер в шапке сгенерирован и служит оформлением, а не портфолио.
+      Действующий сайт мастерской — <a href="https://woodenwolf.ru">woodenwolf.ru</a></span>
+  </div>
+</footer>
+
+<div class="lb" id="lb" hidden>
+  <button class="lb__x" id="lbX" aria-label="Закрыть">×</button>
+  <img alt="">
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
