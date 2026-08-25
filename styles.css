@@ -125,48 +125,76 @@ h1, h2, h3 {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(to top,
-    color-mix(in oklab, var(--color-stage) 76%, transparent) 0%,
-    color-mix(in oklab, var(--color-stage) 28%, transparent) 24%,
-    transparent 46%);
+  /* Два слоя. Вертикальный держит низ кадра, горизонтальный — только левую
+     колонку, где лежит текст. Топить весь кадр ради контраста нельзя: чтобы
+     заголовок вышел на 4.5, понадобилось бы 0.71 альфы, а это уже не фотография. */
+  background:
+    linear-gradient(to right,
+      color-mix(in oklab, var(--color-stage) 82%, transparent) 0%,
+      color-mix(in oklab, var(--color-stage) 62%, transparent) 30%,
+      color-mix(in oklab, var(--color-stage) 22%, transparent) 52%,
+      transparent 70%),
+    linear-gradient(to top,
+      color-mix(in oklab, var(--color-stage) 72%, transparent) 0%,
+      color-mix(in oklab, var(--color-stage) 34%, transparent) 30%,
+      transparent 62%);
 }
 
 .hero-copy {
   position: absolute;
   left: var(--gutter);
   right: var(--gutter);
-  bottom: 14vh;
+  bottom: 11vh;
   z-index: 2;
-  max-width: 32rem;
+  max-width: 34rem;
   color: var(--color-stage-ink);
   pointer-events: none;
   transition: opacity var(--dur-medium) var(--ease-out);
 }
 .hero-copy h1 {
-  font-size: var(--text-display);
+  font-size: var(--text-display-s);
   font-weight: 500;
   line-height: 1.02;
   text-shadow: 0 2px 24px color-mix(in oklab, var(--color-stage) 60%, transparent);
 }
 .hero-copy__house {
+  /* Имя мастера — не подпись под заголовком, а вторая крупная строка.
+     Это личный бренд, ради него и приходят. */
   margin: var(--space-md) 0 0;
-  font: 400 var(--text-xs)/1.4 var(--font-body);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-accent-2);
+  font: 400 clamp(1.35rem, 3.4vw, 2.5rem)/1.15 var(--font-display);
+  letter-spacing: -0.005em;
+  color: var(--color-stage-ink);
+  text-shadow: 0 2px 22px color-mix(in oklab, var(--color-stage) 65%, transparent);
+}
+.hero-copy__house em {
+  display: block;
+  font-style: normal;
+  /* Не акцентом: охра по светлому дереву не читается совсем. */
+  color: var(--color-stage-ink);
+}
+/* Тонкая акцентная черта вместо цветного текста — акцент остаётся, читаемость тоже. */
+.hero-copy__house::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: var(--space-sm);
+  background: var(--color-accent-2);
 }
 .hero-copy__sub {
-  margin: var(--space-sm) 0 0;
+  margin: var(--space-md) 0 0;
   max-width: 26rem;
-  font-size: var(--text-sm);
-  color: color-mix(in oklab, var(--color-stage-ink) 88%, transparent);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: color-mix(in oklab, var(--color-stage-ink) 92%, transparent);
+  text-shadow: 0 2px 16px color-mix(in oklab, var(--color-stage) 70%, transparent);
 }
 
 /* Подпись остановки — на месте заголовка, тем же кеглем. */
 .stop {
   position: absolute;
   left: var(--gutter);
-  bottom: 14vh;
+  bottom: 11vh;
   z-index: 2;
   color: var(--color-stage-ink);
   pointer-events: none;
@@ -644,6 +672,32 @@ main > .duo:first-child { padding-top: calc(42vh + var(--space-xl)); }
 }
 
 @media (max-width: 40rem) {
+  /* Читаемость на телефоне: 11 px моно на фотографии не читается вообще,
+     а основной кегль в 16 px на светлом дереве требует запаса. */
+  :root {
+    --text-2xs: 0.75rem;
+    --text-xs:  0.8125rem;
+    --text-sm:  0.9375rem;
+    --text-md:  1.0625rem;
+  }
+  body { line-height: 1.7; }
+  .hero-copy__sub { font-size: var(--text-md); max-width: none; }
+  /* На телефоне текст идёт во всю ширину, поэтому боковое затемнение бесполезно —
+     работает только вертикальное, и ему нужен запас. */
+  .stage__scrim {
+    background: linear-gradient(to top,
+      color-mix(in oklab, var(--color-stage) 88%, transparent) 0%,
+      color-mix(in oklab, var(--color-stage) 66%, transparent) 34%,
+      color-mix(in oklab, var(--color-stage) 30%, transparent) 58%,
+      transparent 80%);
+  }
+  .hero-copy h1 { text-shadow: 0 2px 18px color-mix(in oklab, var(--color-stage) 85%, transparent); }
+  .hero-copy__house { text-shadow: 0 2px 18px color-mix(in oklab, var(--color-stage) 85%, transparent); }
+  .stop__meta, .caption__note { letter-spacing: 0.14em; }
+  .duo__say p { color: var(--color-ink); }
+  .duo__cap, .fact span, .close__meta { letter-spacing: 0.08em; }
+  .lead { font-size: var(--text-md); }
+
   /* N9 схлопывается до вордмарка и одного действия. Для мастерской
      действие на телефоне — звонок, а не форма: кнопка заявки уходит,
      а телефон становится полноценной кнопкой с хит-таргетом 44 px. */
